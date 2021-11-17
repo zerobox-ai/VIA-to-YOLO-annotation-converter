@@ -23,12 +23,20 @@ def get_dark_annotation(region, size):
     width = region['shape_attributes']['width']
     height = region['shape_attributes']['height']
 
-    _x = Decimal(x + width) / Decimal(2 * size[0])  # relative position of center x of rect
-    _y = Decimal(y + height) / Decimal(2 * size[1])  # relative position of center y of rect
+    # _x = Decimal(x + width) / Decimal(2 * size[0])  # relative position of center x of rect
+    # _y = Decimal(y + height) / Decimal(2 * size[1])  # relative position of center y of rect
+    # _width = Decimal(width / size[0])
+    # _height = Decimal(height / size[1])
+
+    # return "{0:.10f} {0:.10f} {0:.10f} {0:.10f}".format(_x, _y, _width, _height)
+
+    # modified calculations to match YOLOv5 annotation requirements
+    _x = Decimal(x / size[0])  # relative position of center x
+    _y = Decimal(y / size[1])  # relative position of center y
     _width = Decimal(width / size[0])
     _height = Decimal(height / size[1])
 
-    return "{0:.10f} {0:.10f} {0:.10f} {0:.10f}".format(_x, _y, _width, _height)
+    return "{0:.10f} {1:.10f} {2:.10f} {3:.10f}".format(_x, _y, _width, _height)
 
 
 def main():
